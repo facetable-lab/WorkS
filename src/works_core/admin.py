@@ -7,3 +7,6 @@ admin.site.register(City)
 
 # Регистрация модели Specialization
 admin.site.register(Specialization)
+
+# Регистрация модели Vacancy
+admin.site.register(Vacancy)
