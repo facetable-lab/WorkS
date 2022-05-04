@@ -2,22 +2,19 @@ import os.path
 from pathlib import Path
 from decouple import config
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Путь к директории с исходниками
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
+# Уникальный секретный ключ
 SECRET_KEY = config('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# Режим дебага
 DEBUG = True
 
+# Разрешенные хосты
 ALLOWED_HOSTS = []
 
-# Application definition
-
+# Подключенные приложения
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -28,6 +25,7 @@ INSTALLED_APPS = [
     'works_core',
 ]
 
+# Мидлвары, проход осуществляется сверху вниз по списку
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -38,8 +36,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Путь к главному urls
 ROOT_URLCONF = 'work_search.urls'
 
+# Тут записаны пути, где Django ищет templates (HTML страницы)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -56,11 +56,10 @@ TEMPLATES = [
     },
 ]
 
+# Путь к главному wsgi
 WSGI_APPLICATION = 'work_search.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
+# Соединение с БД
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -68,9 +67,7 @@ DATABASES = {
     }
 }
 
-# Password validation
-# https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
-
+# Валидация паролей
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -86,9 +83,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
-
+# Интернациализация
 LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
@@ -97,12 +92,9 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
-
+# Путь к директории со статическими файлами (CSS, JavaScript, Изображения)
 STATIC_URL = 'static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+# Тип поля PRIMARY KEY по умолчанию
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
