@@ -1,3 +1,11 @@
 from django.shortcuts import render
 
-# Create your views here.
+from .models import Vacancy
+
+
+def home_view(request):
+    vacancy_all = Vacancy.objects.all()
+    context = {
+        'vacancy_all': vacancy_all
+    }
+    return render(request, 'home.html', context)
