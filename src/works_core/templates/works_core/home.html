@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title%}Home page{% endblock %}
+
+{% block content %}
+
+<!-- Вывод всех вакансий -->
+{% for vacancy in vacancy_all %}
+
+<div class="card my-3">
+    <h5 class="card-header"><a href="{{vacancy.url}}" target="_blank">{{vacancy.title}}</a></h5>
+    <div class="card-body">
+        <p class="card-text">{{vacancy.description}}</p>
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}
