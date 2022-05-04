@@ -1,5 +1,12 @@
 from django.shortcuts import render
+import datetime
 
 
 def home(request):
-    return render(request, 'home.html')
+    date_now = datetime.datetime.now().date()
+    title = 'Home page'
+    _context = {
+        'date_now': date_now,
+        'title': title
+    }
+    return render(request, 'home.html', _context)
