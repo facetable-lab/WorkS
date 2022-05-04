@@ -9,4 +9,4 @@ def home_view(request):
     context = {
         'vacancy_all': vacancy_all
     }
-    return render(request, 'home.html', context)
+    return render(request, 'works_core/home.html', context)
