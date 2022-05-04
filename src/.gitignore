@@ -33,7 +33,6 @@ __pycache__/
 *.so
 
 # Distribution / packaging
-secret_key.py
 .Python
 env/
 build/
