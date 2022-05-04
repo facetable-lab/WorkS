@@ -43,3 +43,24 @@ class Specialization(models.Model):
         if not self.slug:
             self.slug = from_cyrillic_to_slug(str(self.name))
         super().save(*args, **kwargs)
+
+
+# Модель для Вакансии
+class Vacancy(models.Model):
+    url = models.URLField(unique=True)
+    title = models.CharField(max_length=250, verbose_name='Название вакансии')
+    company = models.CharField(max_length=250, verbose_name='Компания')
+    description = models.TextField(verbose_name='Описание вакансии')
+    city = models.ForeignKey('City', on_delete=models.CASCADE, verbose_name='Город')  # поле со связкой к модели города
+    specialization = models.ForeignKey('Specialization', on_delete=models.CASCADE,
+                                       verbose_name='Язык программирования')  # поле со связкой к модели специализации
+    time_stamp = models.DateField(auto_now_add=True)
+
+    # Русификация
+    class Meta:
+        verbose_name = 'Вакансия'
+        verbose_name_plural = 'Вакансии'
+
+    # Отображение по названию города
+    def __str__(self):
+        return self.title
