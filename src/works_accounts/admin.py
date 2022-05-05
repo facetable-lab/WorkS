@@ -67,7 +67,7 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
-# Регистрация в админку
+# Регистрация в админке
 admin.site.register(Subscriber, UserAdmin)
 
 admin.site.unregister(Group)
