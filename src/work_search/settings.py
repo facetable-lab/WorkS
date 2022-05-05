@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'works_core',
+    'works_accounts',
 ]
 
 # Мидлвары, проход осуществляется сверху вниз по списку
@@ -98,3 +99,6 @@ STATIC_URL = 'static/'
 # Тип поля PRIMARY KEY по умолчанию
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Переопределение юзера
+AUTH_USER_MODEL = 'works_accounts.Subscriber'
