@@ -11,8 +11,8 @@
     <h5 class="card-header"><a href="{{vacancy.url}}" target="_blank">{{vacancy.title}}</a></h5>
     <div class="card-body">
         <h4>{{vacancy.company}}</h4>
-        <p class="card-text">{{vacancy.description}}</p>
-        <p class="catd-text"><small>{{vacancy.city.name}} | {{vacancy.specialization.name }} | {{ vacancy.time_stamp }}
+        <p class="card-text">{{vacancy.description|truncatewords:40}}</p>
+        <p class="catd-text"><small>{{vacancy.city.name}} | {{vacancy.specialization.name }} | {{ vacancy.time_stamp|date:"d-m-Y" }}
         </small></p>  <!-- |date:"d-m-Y" --- Для выводя времени числами, напр.: 04-05-2022 -->
 
     </div>
