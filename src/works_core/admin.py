@@ -16,6 +16,7 @@ class CityAdmin(admin.ModelAdmin):
 # Кастомизация отображения в админке
 class VacancyAdmin(admin.ModelAdmin):
     list_display = ('title', 'city', 'specialization', 'company')
+    list_display_links = ('company', 'city', 'specialization')
 
 
 # Регистрация модели City
