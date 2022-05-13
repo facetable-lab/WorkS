@@ -1,6 +1,6 @@
-import codecs
 import os
 import django
+from django.db import DatabaseError
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'work_search.settings')
 django.setup()
@@ -14,7 +14,8 @@ parsers = (
     (habr_career, 'https://career.habr.com/vacancies?q=python&l=1&type=all')
 )
 
-city = City.objects.filter(slug='rostov-na-donu')
+city = City.objects.filter(slug='rostov-na-donu').first()
+specialization = Specialization.objects.filter(slug='python').first()
 
 jobs, errors = [], []
 for func, url in parsers:
@@ -22,6 +23,9 @@ for func, url in parsers:
     jobs += j
     errors += e
 
-h = codecs.open('work.txt', 'w', 'utf-8')
-h.write(str(jobs))
-h.close()
+for job in jobs:
+    vacancy = Vacancy(**job, city=city, specialization=specialization)
+    try:
+        vacancy.save()
+    except DatabaseError:
+        pass
