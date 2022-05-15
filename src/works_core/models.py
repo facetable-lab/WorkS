@@ -1,4 +1,5 @@
 from django.db import models
+from jsonfield import JSONField
 
 from works_core.utils import from_cyrillic_to_slug
 
@@ -64,3 +65,9 @@ class Vacancy(models.Model):
     # Отображение по названию города
     def __str__(self):
         return self.title
+
+
+# Модель для ошибок
+class Error(models.Model):
+    timestamp = models.DateTimeField(auto_now_add=True)
+    data = JSONField(null=True)
