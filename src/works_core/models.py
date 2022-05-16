@@ -67,6 +67,7 @@ class Vacancy(models.Model):
     class Meta:
         verbose_name = 'Вакансия'
         verbose_name_plural = 'Вакансии'
+        ordering = ['-time_stamp']
 
     # Отображение по названию города
     def __str__(self):
