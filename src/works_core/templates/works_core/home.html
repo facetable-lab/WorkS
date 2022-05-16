@@ -12,7 +12,7 @@
     <div class="card-body">
         <h4>{{vacancy.company}}</h4>
         <p class="card-text">{{vacancy.description|truncatewords:40}}</p>
-        <p class="catd-text"><small>{{vacancy.city.name}} | {{vacancy.specialization.name }} | {{ vacancy.time_stamp|date:"d-m-Y" }}
+        <p class="catd-text"><small>{{vacancy.city.name}} | {{vacancy.specialization.name }} | {{ vacancy.time_stamp }}
         </small></p>  <!-- |date:"d-m-Y" --- Для выводя времени числами, напр.: 04-05-2022 -->
 
     </div>
