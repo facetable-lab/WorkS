@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-
 from works_core.models import *
 
 
@@ -31,3 +30,6 @@ admin.site.register(Vacancy, VacancyAdmin)
 
 # Регистрация модели Error
 admin.site.register(Error)
+
+# Регистрация модели Url
+admin.site.register(Url)
