@@ -26,7 +26,21 @@ def get_settings():
     return settings_conf
 
 
+def get_urls(_settings):
+    url_qs = Url.objects.all().values()
+    url_dict = {(q['city_id'], q['specialization_id']): q['url_data'] for q in url_qs}
+    urls = []
+    for pair in _settings:
+        tmp = {}
+        tmp['city'] = pair[0]
+        tmp['specialization'] = pair[1]
+        tmp['url_data'] = url_dict[pair]
+        urls.append(tmp)
+    return urls
+
+
 q = get_settings()
+u = get_urls(q)
 
 city = City.objects.filter(slug='rostov-na-donu').first()
 specialization = Specialization.objects.filter(slug='python').first()
