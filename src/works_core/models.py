@@ -4,6 +4,12 @@ from jsonfield import JSONField
 from works_core.utils import from_cyrillic_to_slug
 
 
+def default_urls():
+    return {'hh_ru': '',
+            'rabota_ru': '',
+            'habr_career': ''}
+
+
 # Модель Города
 class City(models.Model):
     name = models.CharField(max_length=25, verbose_name='Название населенного пункта', unique=True)
@@ -71,3 +77,14 @@ class Vacancy(models.Model):
 class Error(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     data = JSONField(null=True)
+
+
+# Модель для URL парсера
+class Url(models.Model):
+    city = models.ForeignKey('City', on_delete=models.CASCADE, verbose_name='Город')
+    specialization = models.ForeignKey('Specialization', on_delete=models.CASCADE,
+                                       verbose_name='Язык программирования')
+    url_data = JSONField(null=True, default=default_urls)
+
+    class Meta:
+        unique_together = ('city', 'specialization')
