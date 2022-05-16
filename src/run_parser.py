@@ -13,7 +13,7 @@ from works_core.models import *
 parsers = (
     (hh_ru, 'https://rostov.hh.ru/search/vacancy?text=python&from=suggest_post&fromSearchLine=true&area=76'),
     (rabota_ru, 'https://rostov.rabota.ru/vacancy/?query=python&sort=relevance'),
-    (habr_career, 'https://career.habr.com/vacancies?q=python&l=1&type=all')
+    (habr_career, 'https://career.habr.com/vacancies?city_id=726&q=python&type=all')
 )
 
 city = City.objects.filter(slug='rostov-na-donu').first()
