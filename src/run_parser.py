@@ -1,5 +1,6 @@
 import os
 import django
+from django.contrib.auth import get_user_model
 from django.db import DatabaseError
 
 # Связка джанго со скриптом
@@ -9,12 +10,23 @@ django.setup()
 from works_core.parser import *
 from works_core.models import *
 
+User = get_user_model()
+
 # Адреса и их функции-парсеры
 parsers = (
     (hh_ru, 'https://rostov.hh.ru/search/vacancy?text=python&from=suggest_post&fromSearchLine=true&area=76'),
     (rabota_ru, 'https://rostov.rabota.ru/vacancy/?query=python&sort=relevance'),
     (habr_career, 'https://career.habr.com/vacancies?city_id=726&q=python&type=all')
 )
+
+
+def get_settings():
+    user_qs = User.objects.filter(is_mailing=True).values()
+    settings_conf = set((q['city_id'], q['specialization_id']) for q in user_qs)
+    return settings_conf
+
+
+q = get_settings()
 
 city = City.objects.filter(slug='rostov-na-donu').first()
 specialization = Specialization.objects.filter(slug='python').first()
