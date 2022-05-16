@@ -14,9 +14,9 @@ User = get_user_model()
 
 # Адреса и их функции-парсеры
 parsers = (
-    (hh_ru, 'https://rostov.hh.ru/search/vacancy?text=python&from=suggest_post&fromSearchLine=true&area=76'),
-    (rabota_ru, 'https://rostov.rabota.ru/vacancy/?query=python&sort=relevance'),
-    (habr_career, 'https://career.habr.com/vacancies?city_id=726&q=python&type=all')
+    (hh_ru, 'hh_ru'),
+    (rabota_ru, 'rabota_ru'),
+    (habr_career, 'habr_career')
 )
 
 
@@ -39,22 +39,22 @@ def get_urls(_settings):
     return urls
 
 
-q = get_settings()
-u = get_urls(q)
+settings = get_settings()
+url_list = get_urls(settings)
 
-city = City.objects.filter(slug='rostov-na-donu').first()
-specialization = Specialization.objects.filter(slug='python').first()
 
 # Проходимся по адресам их функциями, сохраняя ошибки
 jobs, errors = [], []
-for func, url in parsers:
-    j, e = func(url)
-    jobs += j
-    errors += e
+for data in url_list:
+    for func, key in parsers:
+        url = data['url_data'][key]
+        j, e = func(url, city=data['city'], specialization=data['specialization'])
+        jobs += j
+        errors += e
 
 # Запись вакансий в БД
 for job in jobs:
-    vacancy = Vacancy(**job, city=city, specialization=specialization)
+    vacancy = Vacancy(**job)
     try:
         vacancy.save()
     except DatabaseError:
