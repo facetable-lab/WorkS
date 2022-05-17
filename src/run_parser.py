@@ -46,6 +46,7 @@ settings = get_settings()
 url_list = get_urls(settings)
 
 
+# Асинхронная функция вызова функций парсера
 async def main(value):
     func, url, city, specialization = value
     job, err = await loop.run_in_executor(None, func, url, city, specialization)
@@ -56,6 +57,7 @@ async def main(value):
 loop = asyncio.new_event_loop()
 asyncio.set_event_loop(loop)
 
+# Список тасков для парсера
 tmp_tasks = [(func, data['url_data'][key], data['city'], data['specialization'])
              for data in url_list
              for func, key in parsers]
