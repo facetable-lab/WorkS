@@ -1,3 +1,4 @@
+import asyncio
 import os
 import django
 from django.contrib.auth import get_user_model
@@ -18,6 +19,8 @@ parsers = (
     (rabota_ru, 'rabota_ru'),
     (habr_career, 'habr_career')
 )
+
+jobs, errors = [], []
 
 
 def get_settings():
@@ -43,14 +46,23 @@ settings = get_settings()
 url_list = get_urls(settings)
 
 
-# Проходимся по адресам их функциями, сохраняя ошибки
-jobs, errors = [], []
-for data in url_list:
-    for func, key in parsers:
-        url = data['url_data'][key]
-        j, e = func(url, city=data['city'], specialization=data['specialization'])
-        jobs += j
-        errors += e
+async def main(value):
+    func, url, city, specialization = value
+    job, err = await loop.run_in_executor(None, func, url, city, specialization)
+    errors.extend(err)
+    jobs.extend(job)
+
+
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(loop)
+
+tmp_tasks = [(func, data['url_data'][key], data['city'], data['specialization'])
+             for data in url_list
+             for func, key in parsers]
+tasks = asyncio.wait([loop.create_task(main(f)) for f in tmp_tasks])
+
+loop.run_until_complete(tasks)
+loop.close()
 
 # Запись вакансий в БД
 for job in jobs:
