@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 
 from .forms import FindForm
@@ -16,7 +17,7 @@ def list_view(request):
     specialization = request.GET.get('specialization')
     form = FindForm()
 
-    vacancy_all = []
+    page_obj = []
     if city or specialization:
         _filter = {}
         if city:
@@ -26,8 +27,13 @@ def list_view(request):
 
         vacancy_all = Vacancy.objects.filter(**_filter)
 
+        #     Пагинация
+        paginator = Paginator(vacancy_all, 10)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
     context = {
-        'vacancy_all': vacancy_all,
+        'vacancy_all': page_obj,
         'form': form
     }
     return render(request, 'works_core/list.html', context)
