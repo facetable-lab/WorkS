@@ -24,27 +24,160 @@
 
 <!-- Кнопки пагинации -->
 
-{% if vacancy_all%}
+{% if vacancy_all %}
 
 <div class="row">
     <div class="col">
-        <div class="pagination">
-    <span class="step-links">
-        {% if vacancy_all.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ vacancy_all.previous_page_number }}">previous</a>
-        {% endif %}
 
-        <span class="current">
-            Page {{ vacancy_all.number }} of {{ vacancy_all.paginator.num_pages }}.
-        </span>
+        <!--        Стили для пагинатора-->
+        <style>
+            .pagination-outer {
+                text-align: center;
+            }
 
-        {% if vacancy_all.has_next %}
-            <a href="?page={{ vacancy_all.next_page_number }}">next</a>
-            <a href="?page={{ vacancy_all.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
+            .pagination {
+                font-family: 'Ubuntu', sans-serif;
+                display: inline-flex;
+                position: relative;
+            }
+
+            .pagination li a.page-link {
+                color: #111;
+                background: transparent;
+                font-size: 20px;
+                font-weight: 600;
+                line-height: 49px;
+                height: 50px;
+                width: 40px;
+                padding: 0;
+                margin: 0 6px;
+                border: none;
+                border-radius: 0;
+                overflow: hidden;
+                position: relative;
+                z-index: 1;
+                transition: all 0.5s ease 0.1s;
+            }
+
+            .pagination li a.page-link:hover,
+            .pagination li a.page-link:focus,
+            .pagination li.active a.page-link:hover,
+            .pagination li.active a.page-link {
+                color: #fff;
+                background: #333;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+            }
+
+            .pagination li a.page-link:before,
+            .pagination li a.page-link:after {
+                content: '';
+                height: 100%;
+                width: 100%;
+                border: 2px solid #333;
+                opacity: 1;
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: -1;
+                transition: all 0.5s ease 0s;
+            }
+
+            .pagination li a.page-link:after {
+                background-color: #fff;
+                border: none;
+                height: 4px;
+                width: 50%;
+                border-radius: 10px;
+                opacity: 0;
+                top: auto;
+                bottom: 3px;
+                left: -50%;
+            }
+
+            .pagination li a.page-link:hover:before,
+            .pagination li a.page-link:focus:before,
+            .pagination li.active a.page-link:hover:before,
+            .pagination li.active a.page-link:before {
+                opacity: 0;
+                left: 7px;
+            }
+
+            .pagination li a.page-link:hover:after,
+            .pagination li a.page-link:focus:after,
+            .pagination li.active a.page-link:hover:after,
+            .pagination li.active a.page-link:after {
+                opacity: 1;
+                left: 3px;
+            }
+
+            @media only screen and (max-width: 480px) {
+                .pagination {
+                    font-size: 0;
+                    display: inline-block;
+                }
+
+                .pagination li {
+                    display: inline-block;
+                    vertical-align: top;
+                    margin: 0 0 22px;
+                }
+            }
+        </style>
+
+        <hr>
+
+        <!--        Пагинатор -->
+        <div class="demo">
+            <nav class="pagination-outer" aria-label="Page navigation">
+                <!--                Первая страница-->
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a href="?city={{city}}&specialization={{specialization}}&page=1" class="page-link"
+                           aria-label="Previous">
+                            <span aria-hidden="true">F</span>
+                        </a>
+                    </li>
+                    {% if vacancy_all.has_previous %}
+                    <li class="page-item">
+                        <a href="?city={{city}}&specialization={{specialization}}&page={{vacancy_all.previous_page_number}}"
+                           class="page-link"
+                           aria-label="Previous">
+                            <span aria-hidden="true">«</span>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% for page in vacancy_all.paginator.page_range %}
+                    <li class="page-item {% if page == vacancy_all.number %} active {% endif %}">
+                        <a class="page-link"
+                           href="?city={{city}}&specialization={{specialization}}&page={{page}}">
+                            {{ page }}</a>
+                    </li>
+                    {% endfor %}
+
+
+                    {% if vacancy_all.has_next %}
+                    <li class="page-item">
+                        <a href="?city={{city}}&specialization={{specialization}}&page={{vacancy_all.next_page_number}}"
+                           class="page-link" aria-label="Next">
+                            <span aria-hidden="true">»</span>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    <!--                    Последняя страница-->
+                    <li class="page-item">
+                        <a href="?city={{city}}&specialization={{specialization}}&page={{vacancy_all.paginator.num_pages}}"
+                           class="page-link"
+                           aria-label="Previous">
+                            <span aria-hidden="true">L</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
         </div>
+
     </div>
 </div>
 
