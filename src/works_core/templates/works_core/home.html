@@ -4,15 +4,80 @@
 
 {% block content %}
 
-<div class="row">
-    <div class="col"><h2 class="text-center my-3">Сервис по сбору и рассылке вакансий</h2></div>
+<!-- Стили для превью-->
+<style>
+
+    .jumbotron {
+        background-attachment: fixed;
+        color: black !important;
+        height: 20vh;
+    }
+
+    .btn {
+        margin-right: 10px;
+    }
+
+    .rightHeader {
+        position: absolute;
+        top: -15px;
+        right: 8px;
+    }
+
+    .leftHeader {
+        position: absolute;
+        top: -15px;
+        left: 20px;
+    }
+
+    .title {
+        margin-top: 8vh;
+
+    }
+
+    .text_margin {
+        width: 70vw;
+        margin: 0 auto;
+    }
+
+    .string-1 {
+        padding-top: 30px;
+        width: auto;
+        margin: 0 auto;
+        font-weight: 100;
+        margin-top: -35px;
+    }
+
+
+    .content {
+        margin: 10%;
+    }
+
+    br {
+        margin: 20px;
+    }
+</style>
+
+<!-- Превью -->
+<div id="cover">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="btn-group rightHeader">
+        </div>
+        <div class="btn-group leftHeader">
+        </div>
+        <div class="container">
+            <h1 class="title display-3 text-center" style="font-weight:100;">Work<strong
+                    style="font-weight:600;">S</strong>.net</h1>
+            <p class="lead string-1 text-center">Сервис по сбору и рассылке вакансий</p>
+
+        </div>
+    </div>
 </div>
 
 <!-- Форма для поиска -->
 <div class="row">
-    <div class="col-md-8 mx-auto">
-        <h4 class="mb-3 mt-3">Для просмотра доступных вакансий заполните форму, можно поставить только город, или
-            наоборот - только специальность!</h4>
+    <div class="col-md-7 mx-auto">
+        <h5 class="mb-3">Для просмотра доступных вакансий заполните форму, можно поставить только город, или
+            наоборот - только специальность.</h5>
         <form method="GET" action="{% url 'list' %}">
             <div class="form-group">
                 {{form.as_p}}
