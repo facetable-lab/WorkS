@@ -7,8 +7,8 @@ User = get_user_model()
 
 # Форма авторизации
 class UserLoginForm(forms.Form):
-    email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(label='E-mail адрес', widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     def clean(self, *args, **kwargs):
         email = self.cleaned_data.get('email').strip()
@@ -25,3 +25,21 @@ class UserLoginForm(forms.Form):
                 raise forms.ValidationError('Ваш аккаунт отключен.')
 
         return super(UserLoginForm, self).clean(*args, **kwargs)
+
+
+# Форма регистрации
+class UserRegistrationForm(forms.ModelForm):
+    email = forms.EmailField(label='E-mail адрес', widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password2 = forms.CharField(label='Повтор пароля',
+                                      widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = User
+        fields = ('email',)
+
+    def clean_password2(self):
+        data = self.cleaned_data
+        if data['password'] != data['password2']:
+            raise forms.ValidationError('Пароли не совпадают.')
+        return data['password2']
