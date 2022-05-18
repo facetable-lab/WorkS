@@ -6,6 +6,12 @@ from .models import Vacancy
 
 # Функция отображения главной страницы
 def home_view(request):
+    form = FindForm()
+    return render(request, 'works_core/home.html', {'form': form})
+
+
+# Функция отображения списка вакансий
+def list_view(request):
     city = request.GET.get('city')
     specialization = request.GET.get('specialization')
     form = FindForm()
@@ -24,4 +30,4 @@ def home_view(request):
         'vacancy_all': vacancy_all,
         'form': form
     }
-    return render(request, 'works_core/home.html', context)
+    return render(request, 'works_core/list.html', context)
