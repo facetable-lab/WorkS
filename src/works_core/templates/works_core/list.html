@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title%}Home page{% endblock %}
+
+{% block content %}
+
+<!-- Вывод всех вакансий -->
+{% for vacancy in vacancy_all %}
+
+<div class="card my-3">
+    <h5 class="card-header"><a href="{{vacancy.url}}" target="_blank">{{vacancy.title}}</a></h5>
+    <div class="card-body">
+        <h4>{{vacancy.company}}</h4>
+        <p class="card-text">{{vacancy.description|truncatewords:40}}</p>
+        <p class="catd-text"><small>{{vacancy.city.name}} | {{vacancy.specialization.name }} | {{ vacancy.time_stamp }}
+        </small></p>  <!-- |date:"d-m-Y" --- Для выводя времени числами, напр.: 04-05-2022 -->
+
+    </div>
+</div>
+
+{% empty %}
+<h3>К сожалению, по Вашему запросу ничего не найдено.</h3>
+{% endfor %}
+
+<!-- Форма для поиска -->
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <form method="GET" action="{% url 'list' %}">
+
+            <div class="form-group">
+                {{form.as_p}}
+            </div>
+            <button type="submit" class="btn btn-primary">Найти!</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
