@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title%}Home page{% endblock %}
+{% block title%}Авторизация{% endblock %}
 
 {% block content %}
 <div class="row">
@@ -35,6 +35,7 @@
                                 <!-- Форма -->
                                 <form action="" method="POST">
                                     {% csrf_token %}
+                                    <h1 class="mb-3">Авторизация</h1>
                                     {{ form.as_p}}
                                     <div class="form-check d-flex justify-content-center mb-4">
                                         <input class="form-check-input me-2" type="checkbox" value=""
