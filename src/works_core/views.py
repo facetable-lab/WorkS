@@ -17,7 +17,12 @@ def list_view(request):
     specialization = request.GET.get('specialization')
     form = FindForm()
 
-    page_obj = []
+    context = {
+        'city': city,
+        'specialization': specialization,
+        'form': form
+    }
+
     if city or specialization:
         _filter = {}
         if city:
@@ -32,8 +37,5 @@ def list_view(request):
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
-    context = {
-        'vacancy_all': page_obj,
-        'form': form
-    }
+        context['vacancy_all'] = page_obj
     return render(request, 'works_core/list.html', context)
