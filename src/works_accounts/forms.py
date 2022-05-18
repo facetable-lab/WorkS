@@ -32,7 +32,7 @@ class UserRegistrationForm(forms.ModelForm):
     email = forms.EmailField(label='E-mail адрес', widget=forms.EmailInput(attrs={'class': 'form-control'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Повтор пароля',
-                                      widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+                                widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = User
